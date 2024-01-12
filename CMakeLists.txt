@@ -8,14 +8,15 @@ project(lmdb
 add_library(lmdb
     lmdb/libraries/liblmdb/midl.c
     lmdb/libraries/liblmdb/midl.h
-    lmdb/libraries/liblmdb/mdb.c
+    # lmdb/libraries/liblmdb/mdb.c
+    mdb_env_open.c
     lmdb/libraries/liblmdb/lmdb.h
     LMDBConfig.cmake.in
 )
 
 set_target_properties(lmdb
     PROPERTIES PUBLIC_HEADER
-        "lmdb/libraries/liblmdb/lmdb.h;lmdb/libraries/liblmdb/midl.h"
+        "lmdb/libraries/liblmdb/lmdb.h;lmdb/libraries/liblmdb/midl.h;mdb_custom.h"
     )
 
 include(CMakePackageConfigHelpers)
@@ -64,3 +65,13 @@ foreach(TEST_EXECUTABLE ${TEST_EXECUTABLES})
         lmdb
     )
 endforeach()
+
+include_directories(
+    lmdb/libraries/liblmdb
+)
+add_executable(mdb_test_ro
+    mdb_test_ro.c
+)
+target_link_libraries(mdb_test_ro
+    lmdb
+)
