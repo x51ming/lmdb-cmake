@@ -1,0 +1,4 @@
+include(CMakeFindDependencyMacro)
+message(STATUS "loading lmdb")
+include("${CMAKE_CURRENT_LIST_DIR}/LMDBTargets.cmake")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include")
